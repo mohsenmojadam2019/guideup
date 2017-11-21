@@ -1,0 +1,61 @@
+// Here you can add other styles
+
+.app-header.navbar .navbar-brand {
+	//background-size: 120px auto !important;
+}
+
+.image-upload {
+  position: relative;
+	display: inline-block;
+	margin: 5px 10px 5px 0;
+	width: 100px;
+	height: 100px;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	vertical-align: bottom;
+	border-radius: 10px;
+}
+.image-upload .add-button {
+	display: flex;
+  justify-content: center;
+	border-radius: 10px;
+  width: 100% !important;
+  height: 100% !important;
+	background-color: rgb(238, 238, 238);
+  &:hover {
+	   background-color: rgba(0, 0, 0, 0.3);
+	}
+}
+
+.image-upload .delete-button {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4px;
+	border: #bec3c7 1px solid;
+	border-radius: 50%;
+	background: #fff;
+	font-size: initial;
+	cursor: pointer;
+}
+
+.image-upload .loading-image {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: xx-large;
+		border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.google-maps {
+  height: calc(100vh - 283px);
+}

@@ -1,0 +1,42 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+    
+    RewriteEngine On
+    RewriteBase /
+
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    DirectoryIndex index.html
+
+    # Redirect Trailing Slashes...
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+# Handle React Router...
+    #RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+    #RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+    #RewriteRule ^ - [L]
+
+    # Handle Front Controller...
+    #RewriteCond %{REQUEST_URI} ^/api/*
+    #RewriteRule ^ index.php [L]
+
+    # Handle Passport Auth...
+    #RewriteCond %{REQUEST_URI} ^/oauth/*
+    #RewriteRule ^ index.php [L]
+
+    RewriteCond %{REQUEST_URI} ^/(oauth|api)/*
+    RewriteRule ^ /index.php [L]
+
+  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+  RewriteRule ^ - [L]
+
+  RewriteRule ^ /index.html [L]
+
+    #RewriteRule ^ /index.html [L]
+
+</IfModule>
+

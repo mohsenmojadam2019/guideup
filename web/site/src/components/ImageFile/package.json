@@ -1,0 +1,6 @@
+{
+  "name": "ImageFile",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ImageFile.js"
+}
