@@ -40,6 +40,11 @@ class Place extends Model
         return $this->belongsToMany(Guide::class, 'guide_place');
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'place_category');
+    }
+
     public function galleries()
     {
         return $this->hasMany(Gallery::class);

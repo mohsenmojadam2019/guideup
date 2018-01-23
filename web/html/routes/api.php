@@ -46,12 +46,10 @@ Route::resource('review', 'Api\ReviewController',['except' => ['edit', 'create']
 
 Route::resource('feedback', 'Api\FeedbackController',['except' => ['edit', 'create', 'destroy']]);
 
-#Route::delete('chat', 'Api\ChatController@delete');
-Route::post('offlinechat', 'Api\UserController@received');
+Route::resource('category', 'Api\CategoryController',['except' => ['edit', 'create', 'destroy']]);
 
-Route::post('chat/message', 'Api\ChatController@delete');
-Route::post('/offlinechat', 'Api\ChatController@received');
-
+#Route::post('chat/message', 'Api\ChatController@delete');
+#Route::post('/offlinechat', 'Api\ChatController@received');
 
 Route::post('user/forgot', 'Auth\ForgotPasswordController@sendResetLinkEmail');
 Route::post('user/reset', 'Auth\ResetPasswordController@reset');
