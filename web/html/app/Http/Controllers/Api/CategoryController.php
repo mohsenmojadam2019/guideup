@@ -31,7 +31,7 @@ class CategoryController extends Controller {
             }
 
             return Response::json($this->categories->search(
-                $request->only(['name'])));
+                $request->only(['term', 'type'])));
         }
         catch(\Exception $e) {
             return Response::json(['error' => [
