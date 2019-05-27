@@ -1,0 +1,76 @@
+version: '3'
+services:
+    # Web aplication service
+    web:
+        build:
+            context: ./web
+            dockerfile: Dockerfile
+        container_name: guideup.web
+        volumes:
+            - ./web/html:/var/www/html
+        ports:
+            - 80:80
+            - 443:443
+        links:
+            - app-database:app-database
+            - ejabberd-database:ejabberd-database
+    # database aplication service
+    app-database:
+        image: mysql:5.7
+        container_name: guideup.db
+        restart: always
+        environment:
+            - MYSQL_ROOT_PASSWORD=rootpassword
+            - MYSQL_DATABASE=guideup
+            - MYSQL_USER=guideup
+            - MYSQL_PASSWORD=guideuppassword
+        volumes:
+            - ./database/data/web:/var/lib/mysql
+            - ./database/guideup.sql:/docker-entrypoint-initdb.d/guideup.sql
+        expose:
+             - 3306
+    #database web interface
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        ports:
+            - 8080:80
+        links:
+            - app-database:app-database
+        environment:
+            - MYSQL_USERNAME=root
+            - MYSQL_ROOT_PASSWORD=rootpassword
+            - PMA_ARBITRARY=1
+        restart: always
+        volumes:
+         - /sessions
+    #chat service
+    ejabberd:
+        build:
+            context: ./ejabberd
+            dockerfile: Dockerfile
+        container_name: guideup.chat
+        tty: true
+        ports:
+            - 4560:4560 
+            - 5222:5222 
+            - 5269:5269 
+            - 5280:5280 
+            - 5443:5443
+        links:
+            - ejabberd-database
+    #chat Database
+    ejabberd-database:
+        image: mysql:5.7
+        container_name: guideup.chatdb
+        restart: always
+        environment:
+            - MYSQL_ROOT_PASSWORD=rootpassword
+            - MYSQL_DATABASE=ejabberd
+            - MYSQL_USER=ejabberd
+            - MYSQL_PASSWORD=ejabberdpassword
+        volumes:
+            - ./database/data/ejabberd:/var/lib/mysql
+            - ./ejaberd/ejabberd.sql:/docker-entrypoint-initdb.d/ejabberd.sql
+        expose:
+            - 3306
